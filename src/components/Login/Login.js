@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import SingUpAPI from './SingUpAPI';
+import LoginAPI from './LoginAPI';
 
-const SingUp = ({ SingUpAPI }) => {
-  const [username, setUsername] = useState();
+const SingUp = ({ LoginAPI }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const newUser = {
-    username,
+  const credentials = {
     email,
     password
   };
 
-  const handleUsername = event => {
-    setUsername(event.target.value);
-  };
   const handleEmail = event => {
     setEmail(event.target.value);
   };
@@ -24,21 +19,12 @@ const SingUp = ({ SingUpAPI }) => {
   };
   const handelSubmit = event => {
     event.preventDefault();
-    SingUpAPI(newUser);
+    LoginAPI(credentials);
   };
 
   return (
-    <div className="SingUpontainer">
+    <div className="loginContainer">
       <form onSubmit={handelSubmit}>
-        <label>
-          Username
-          <input
-            type="text"
-            placeholder="Username"
-            required
-            onChange={handleUsername}
-          />
-        </label>
         <label>
           Email
           <input
@@ -57,7 +43,10 @@ const SingUp = ({ SingUpAPI }) => {
             onChange={handlePassword}
           />
         </label>
-        <input type="submit" value="Sing Up"></input>
+        <p className="sing-up-text">
+          Don't have an account? <a href="/sing-up">Sing up</a>
+        </p>
+        <input type="submit" value="Login"></input>
       </form>
     </div>
   );
@@ -65,6 +54,6 @@ const SingUp = ({ SingUpAPI }) => {
 
 const mapStateToProps = () => ({});
 const mapDispatchToProps = {
-  SingUpAPI
+  LoginAPI
 };
 export default connect(mapStateToProps, mapDispatchToProps)(SingUp);

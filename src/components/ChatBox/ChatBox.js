@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getMessages, newMessage } from './ChatAPI';
+import { getMessages, newMessage, youTubeBot } from './ChatAPI';
 import Message from '../Message/Message';
 
-const ChatBox = ({ messages, getMessages, newMessage }) => {
+const ChatBox = ({
+  messages,
+  newMessage,
+  videoId,
+  getMessages,
+  youTubeBot
+}) => {
   const [msgText, setMsgText] = useState('');
 
   useEffect(() => {
@@ -16,7 +22,9 @@ const ChatBox = ({ messages, getMessages, newMessage }) => {
 
   const handelSubmit = event => {
     event.preventDefault();
-    newMessage(msgText);
+    msgText.startsWith('/youtube')
+      ? youTubeBot(msgText.substr(9, msgText.length))
+      : newMessage(msgText);
   };
 
   return (
@@ -27,6 +35,7 @@ const ChatBox = ({ messages, getMessages, newMessage }) => {
         <div>
           {messages.length > 0 &&
             messages.map(msg => <Message msg={msg} key={msg._id} />)}
+          {videoId.length > 0 && messages.map(id => <p key={id}>{id}</p>)}
         </div>
       </div>
       <form onSubmit={handelSubmit}>
@@ -42,12 +51,14 @@ const ChatBox = ({ messages, getMessages, newMessage }) => {
 };
 
 const mapStateToProps = state => ({
-  messages: state.messages
+  messages: state.messages,
+  videoId: state.videoId
 });
 
 const mapDispatchToProps = {
   getMessages,
-  newMessage
+  newMessage,
+  youTubeBot
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatBox);

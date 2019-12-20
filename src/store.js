@@ -3,9 +3,11 @@ import ReduxThunk from 'redux-thunk';
 
 const initialState = {
   messages: [],
-  newMessage: ''
+  newMessage: '',
+  videoId: ''
 };
 const reducer = (state = initialState, action) => {
+  console.log(action.payload);
   switch (action.type) {
     case 'GET_MESSAGES':
       return {
@@ -17,6 +19,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         newMessage: action.payload,
         messages: state.messages.concat(action.payload)
+      };
+    case 'NEW_VIDEO_ID':
+      return {
+        ...state,
+        videoId: action.payload
       };
     default:
       return state;

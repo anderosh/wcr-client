@@ -43,3 +43,27 @@ export function newMessage(msgText) {
     }
   };
 }
+
+export function youTubeBot(qSearch) {
+  return async function(dispatch) {
+    try {
+      const videoId = await axios({
+        method: 'post',
+        url: `${baseURL}/youtube-bot`,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-acces-token': localStorage.getItem('token')
+        },
+        data: {
+          qSearch
+        }
+      });
+      return dispatch({
+        type: 'NEW_VIDEO_ID',
+        payload: videoId.data
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+}

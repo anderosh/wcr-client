@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/Header/Header.js';
 import ChatBox from './components/ChatBox/ChatBox.js';
 import SingUp from './components/SingUp/SingUp';
+import Login from './components/Login/Login.js';
 
 const App = () => (
   <Provider store={store}>
@@ -13,6 +14,7 @@ const App = () => (
       <Switch>
         <Route path="/home" component={ChatBox}></Route>
         <Route path="/sing-up" component={SingUp}></Route>
+        <Route path="/login" component={Login}></Route>
       </Switch>
     </Router>
   </Provider>

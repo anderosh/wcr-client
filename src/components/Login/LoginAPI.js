@@ -1,14 +1,13 @@
 import axios from 'axios';
 const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
-const SingUpAPI = ({ username, email, password }) => {
+const LogInAPI = ({ email, password }) => {
   return async function() {
     try {
       await axios({
         method: 'post',
-        url: `${baseURL}/sing-up`,
+        url: `${baseURL}/login`,
         data: {
-          username,
           email,
           password
         }
@@ -24,4 +23,4 @@ const SingUpAPI = ({ username, email, password }) => {
   };
 };
 
-export default SingUpAPI;
+export default LogInAPI;
