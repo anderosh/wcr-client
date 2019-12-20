@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from 'react-redux';
+import store from './store.js';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Header from './components/Header/Header.js';
+import ChatBox from './components/ChatBox/ChatBox.js';
+import SingUp from './components/SingUp/SingUp';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <Provider store={store}>
+    <Router history={Router}>
+      <Header />
+      <Switch>
+        <Route path="/home" component={ChatBox}></Route>
+        <Route path="/sing-up" component={SingUp}></Route>
+      </Switch>
+    </Router>
+  </Provider>
+);
 
 export default App;
